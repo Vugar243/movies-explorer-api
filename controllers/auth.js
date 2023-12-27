@@ -1,7 +1,7 @@
 // controllers/auth.js
-const { JWT_SECRET } = process.env;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../constants');
 const User = require('../models/user');
 const handleError = require('../utils/errorHandler');
 
@@ -41,7 +41,7 @@ const login = (req, res) => {
             return handleError(authError, res);
           }
 
-          const token = jwt.sign({ _id: user._id }, process.env.NODE_ENV === 'production' ? JWT_SECRET : 'secret-key', { expiresIn: '7d' });
+          const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
           res.send({ token });
         });
     })

@@ -1,5 +1,4 @@
 // utils/errorHandler.js
-
 const handleError = (err, res) => {
   let statusCode;
   let errorMessage;

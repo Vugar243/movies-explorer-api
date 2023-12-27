@@ -1,8 +1,15 @@
+// controllers/users.js
 const User = require('../models/user');
 const handleError = require('../utils/errorHandler');
 
 const getUserInfo = (req, res) => {
-  const userId = req.user._id; // Assuming user information is available through req.user
+  const userId = req.user._id;
+
+  // Валидация: проверка, существует ли у пользователя _id
+  if (!userId) {
+    const validationError = { status: 400, message: 'Некорректный идентификатор пользователя' };
+    return handleError(validationError, res);
+  }
   User.findById(userId)
     .then((user) => {
       if (!user) {
